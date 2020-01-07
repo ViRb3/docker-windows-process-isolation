@@ -1,12 +1,11 @@
 # Install Windows feature containers
 $restartNeeded = $false
 if (!(Get-WindowsOptionalFeature -FeatureName containers -Online).State -eq 'Enabled') {
-    $restartNeeded = (Enable-WindowsOptionalFeature -FeatureName containers -Online).RestartNeeded
+  $restartNeeded = (Enable-WindowsOptionalFeature -FeatureName containers -Online).RestartNeeded
 }
 
-if (Get-Service docker -ErrorAction SilentlyContinue)
-{
-    Stop-Service docker
+if (Get-Service docker -ErrorAction SilentlyContinue) {
+  Stop-Service docker
 }
 
 # Download the zip file.
@@ -21,7 +20,7 @@ Invoke-WebRequest -UseBasicparsing -Outfile $zipfile -Uri $url
 Expand-Archive $zipfile -DestinationPath $Env:ProgramFiles -Force
 
 # Modify PATH to persist across sessions.
-$newPath = [Environment]::GetEnvironmentVariable("PATH",[EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\docker"
+$newPath = [Environment]::GetEnvironmentVariable("PATH", [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\docker"
 $splittedPath = $newPath -split ';'
 $cleanedPath = $splittedPath | Sort-Object -Unique
 $newPath = $cleanedPath -join ';'
@@ -35,10 +34,11 @@ if (!(Get-Service docker -ErrorAction SilentlyContinue)) {
 
 # Start the Docker service.
 if ($restartNeeded) {
-    Write-Host 'A restart is needed to finish the installation' -ForegroundColor Green
-    If ((Read-Host 'Do you want to restart now? [Y/N]') -eq 'Y') {
-      Restart-Computer
-    }
-} else {
-    Start-Service docker
+  Write-Host 'A restart is needed to finish the installation' -ForegroundColor Green
+  If ((Read-Host 'Do you want to restart now? [Y/N]') -eq 'Y') {
+    Restart-Computer
+  }
+}
+else {
+  Start-Service docker
 }
