@@ -18,6 +18,8 @@ Invoke-WebRequest -UseBasicparsing -Outfile $zipfile -Uri $url
 
 # Extract the archive.
 Expand-Archive $zipfile -DestinationPath $Env:ProgramFiles -Force
+# Clean up the zip file.
+Remove-Item -Force $zipfile
 
 # Modify PATH to persist across sessions.
 $newPath = [Environment]::GetEnvironmentVariable("PATH", [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\docker"
