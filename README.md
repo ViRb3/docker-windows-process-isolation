@@ -24,8 +24,8 @@ Tested on `Windows 10 Pro 1909`. Should work on any Windows build `>1809`
 
 In an elevated (Administrator) PowerShell window, run:
 ```powershell
-Invoke-Expression $((Invoke-WebRequest "https://raw.githubusercontent.com/ViRb3/docker-windows-containers/master/Install-Docker-Container.ps1").Content)
+Invoke-Expression $((Invoke-WebRequest "https://raw.githubusercontent.com/ViRb3/docker-windows-process-isolation/master/Install-Docker-Process-Isolation-Mode.ps1").Content)
 ```
 
 ## Resources
-Based on this [awesome article](https://github.com/ViRb3/docker-windows-process-isolation/blob/master/Install-Docker-Process-Isolation-Mode.ps1)
+Based on this [awesome article](https://www.kauffmann.nl/2019/03/04/how-to-install-docker-on-windows-10-without-hyper-v/)
